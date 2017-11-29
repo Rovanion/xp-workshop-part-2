@@ -53,6 +53,10 @@ def handle_event(state, event_name, event_data):
   elif event_name == 'player':
     if state.player.name != event_data.name:
       state.other_players[event_data.name] = event_data
+  elif event_name == 'player_left':
+    state.other_players.pop(event_data, None)
+  elif event_name == 'exit':
+    commands.append(('leave', state.player.name))
   else:
     # TODO: implement more events
     pass

@@ -65,3 +65,20 @@ def test_other_players():
   state, _ = handle_event(state, 'player', bengt)
   state, _ = handle_event(state, 'tick', 0.070)
   assert state.other_players['bengt'] == bengt
+
+def test_exit_server():
+  state = initial_state(initial_input, PLAYER, MAP, 3, 5)
+  state, commands = handle_event(state, 'exit', None)
+  state, _ = handle_event(state, 'tick', 0.070)
+  assert len(list(filter((lambda c: c[0] == 'leave'), commands))) == 1
+
+def test_leave():
+  state = initial_state(initial_input, PLAYER, MAP, 3, 5)
+  bengt = Player(
+    name='bengt',
+    position=Position(1.5, 1.5),
+    forward=Direction(0.0, -1.0))
+  state, _ = handle_event(state, 'player', bengt)
+  state, _ = handle_event(state, 'player_left', 'bengt')
+  state, _ = handle_event(state, 'tick', 0.070)
+  assert 'bengt' not in state.other_players.keys()
