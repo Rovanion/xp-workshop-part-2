@@ -50,6 +50,9 @@ def handle_event(state, event_name, event_data):
   elif event_name == 'input':
     new_input = event_data
     state = state._replace(input=new_input)
+  elif event_name == 'player':
+    if state.player.name != event_data.name:
+      state.other_players[event_data.name] = event_data
   else:
     # TODO: implement more events
     pass

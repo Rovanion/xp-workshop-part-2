@@ -55,3 +55,13 @@ def test_turn_left():
   assert state.player.position.y == 1.5
   assert state.player.forward.x < 0.0
   assert state.player.forward.y > -1.0
+
+def test_other_players():
+  state = initial_state(initial_input, PLAYER, MAP, 3, 5)
+  bengt = Player(
+    name='bengt',
+    position=Position(1.5, 1.5),
+    forward=Direction(0.0, -1.0))
+  state, _ = handle_event(state, 'player', bengt)
+  state, _ = handle_event(state, 'tick', 0.070)
+  assert state.other_players['bengt'] == bengt
