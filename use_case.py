@@ -18,7 +18,7 @@ def _try_to_move(map, from_, to):
   return to if find_first_collision(map, LineSegment(from_, to)) is None else from_
 
 def move_player(player, map, input, frame_time, speed):
-  movement_sign = (1 if input.forward else 0)
+  movement_sign = (1 if input.forward else -1 if input.backward else 0)
 
   if movement_sign == 0:
     return player
