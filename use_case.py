@@ -5,7 +5,7 @@ from domain import Angle, find_first_collision, initial_input, LineSegment, Play
 _State = namedtuple('State', 'input, player, world_map, rotation_speed, movement_speed, other_players')
 
 def rotate_player(player, input, frame_time, speed):
-  rotation_sign = (1 if input.turn_right else 0)
+  rotation_sign = (1 if input.turn_right else -1 if input.turn_left else 0)
 
   if rotation_sign == 0:
     return player
